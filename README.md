@@ -1,0 +1,1 @@
+Pour accéder à ma documentation vous pouvez les fichiers .html qui vous intéresse pour ensuite les ouvrir sur un navigateur de votre choix ou simplement cliquez sur le lien correspendant sur mon profil !
