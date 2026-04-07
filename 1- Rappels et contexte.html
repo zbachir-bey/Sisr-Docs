@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 0 · Rappels et contexte</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #191919;
+  color: #e3e3e3;
+  min-height: 100vh;
+  padding: 0 0 80px;
+}
+
+/* TOP BAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-bottom: 1px solid #2e2e2e;
+  font-size: 13px;
+  color: #6b6b6b;
+  position: sticky;
+  top: 0;
+  background: #191919;
+  z-index: 10;
+}
+
+.topbar-crumb { color: #6b6b6b; }
+.topbar-crumb.active { color: #e3e3e3; }
+.topbar-sep { font-size: 11px; }
+
+/* COVER */
+.cover {
+  height: 160px;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0f1f30 50%, #1a1a2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(79,156,249,0.03) 40px,
+    rgba(79,156,249,0.03) 80px
+  );
+}
+
+/* PAGE */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 96px;
+}
+
+/* ICON + TITLE */
+.page-icon {
+  font-size: 52px;
+  margin-top: -28px;
+  margin-bottom: 16px;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.page-meta {
+  font-size: 13px;
+  color: #6b6b6b;
+  margin-bottom: 32px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* PROPERTIES BLOCK */
+.props {
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  font-size: 13px;
+}
+
+.prop-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.prop-row:last-child { border-bottom: none; }
+
+.prop-key {
+  padding: 8px 12px;
+  color: #6b6b6b;
+  background: #1f1f1f;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prop-val {
+  padding: 8px 12px;
+  color: #e3e3e3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tag-blue { background: rgba(79,156,249,.15); color: #4f9cf9; }
+.tag-green { background: rgba(61,214,140,.15); color: #3dd68c; }
+.tag-orange { background: rgba(249,123,79,.15); color: #f97b4f; }
+.tag-gray { background: rgba(255,255,255,.08); color: #a0a0a0; }
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: #2e2e2e;
+  margin: 28px 0;
+}
+
+/* HEADINGS */
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 36px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h2 .emoji { font-size: 18px; }
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #d0d0d0;
+  margin: 24px 0 12px;
+}
+
+/* CALLOUTS */
+.callout {
+  display: flex;
+  gap: 12px;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.callout-body { flex: 1; }
+.callout-title { font-weight: 600; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+
+.callout.blue { background: rgba(79,156,249,.1); border: 1px solid rgba(79,156,249,.2); }
+.callout.blue .callout-title { color: #4f9cf9; }
+
+.callout.green { background: rgba(61,214,140,.08); border: 1px solid rgba(61,214,140,.15); }
+.callout.green .callout-title { color: #3dd68c; }
+
+.callout.gray { background: rgba(255,255,255,.04); border: 1px solid #2e2e2e; }
+.callout.gray .callout-title { color: #a0a0a0; }
+
+/* BULLET LIST */
+ul {
+  list-style: none;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d0d0d0;
+}
+
+ul li::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #555;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* CODE BLOCK */
+.code-block {
+  background: #141414;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: #1f1f1f;
+  border-bottom: 1px solid #2e2e2e;
+  font-size: 11px;
+  color: #6b6b6b;
+  font-family: 'Inter', sans-serif;
+}
+
+.code-body {
+  padding: 14px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #c9d1d9;
+  overflow-x: auto;
+}
+
+.code-body .addr { color: #79c0ff; }
+.code-body .mask { color: #ffa657; }
+.code-body .result { color: #3dd68c; font-weight: 500; }
+.code-body .sep { color: #555; }
+.code-body .comment { color: #6b6b6b; }
+
+/* INLINE CODE */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid #2e2e2e;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #e3e3e3;
+}
+
+/* RESULT PILLS */
+.results {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.pill.blue  { background: rgba(79,156,249,.1); border-color: rgba(79,156,249,.25); color: #4f9cf9; }
+.pill.green { background: rgba(61,214,140,.1); border-color: rgba(61,214,140,.25); color: #3dd68c; }
+.pill.amber { background: rgba(249,180,79,.1); border-color: rgba(249,180,79,.25); color: #f9b44f; }
+
+/* TABLE */
+.table-wrap {
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+thead th {
+  background: #1f1f1f;
+  padding: 9px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: #6b6b6b;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #2e2e2e;
+  color: #d0d0d0;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(255,255,255,.02); }
+
+.dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:7px; vertical-align:middle; }
+
+/* TOGGLE (dépliable) */
+details {
+  background: rgba(255,255,255,.03);
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #d0d0d0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+summary::before {
+  content: '▶';
+  font-size: 9px;
+  color: #6b6b6b;
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before { transform: rotate(90deg); }
+
+.toggle-body {
+  padding: 4px 16px 14px;
+  border-top: 1px solid #2e2e2e;
+  font-size: 13px;
+  color: #a0a0a0;
+}
+
+/* TOPO SVG */
+.topo-wrap {
+  background: #141414;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 14px 0;
+}
+
+/* MATH */
+.math {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  color: #e3e3e3;
+  background: rgba(255,255,255,.04);
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  padding: 10px 16px;
+  display: inline-block;
+  margin: 6px 0;
+}
+
+.math sup { font-size: 10px; vertical-align: super; }
+
+@media (max-width: 700px) {
+  .page { padding: 0 20px; }
+  .page-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="topbar-crumb">Sisr-Docs</span>
+  <span class="topbar-sep">›</span>
+  <span class="topbar-crumb active">Mission 0 · Rappels et contexte</span>
+</div>
+
+<!-- COVER -->
+<div class="cover"></div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <span class="page-icon">🌐</span>
+  <h1 class="page-title">Mission 0 · Rappels et contexte</h1>
+
+  <div class="page-meta">
+    <span>📚 BTS SISR · Groupe 16</span>
+    <span>📅 Semestre 1</span>
+    <span>✏️ zbachir-bey</span>
+  </div>
+
+  <!-- PROPERTIES -->
+  <div class="props">
+    <div class="prop-row">
+      <div class="prop-key">🏷️ Type</div>
+      <div class="prop-val"><span class="tag tag-blue">Cours</span><span class="tag tag-gray">Réseau</span></div>
+    </div>
+    <div class="prop-row">
+      <div class="prop-key">📡 Réseaux</div>
+      <div class="prop-val">
+        <span class="tag tag-blue">172.31.16.0/16</span>
+        <span class="tag tag-green">10.31.16.0/20</span>
+      </div>
+    </div>
+    <div class="prop-row">
+      <div class="prop-key">🔥 Statut</div>
+      <div class="prop-val"><span class="tag tag-green">✓ Complété</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- E.1.1 -->
+  <h2><span class="emoji">🏗️</span> E.1.1 — Architecture réseau</h2>
+
+  <ul>
+    <li>1 serveur sur le réseau <code>10.31.16.0/20</code></li>
+    <li>1 routeur reliant les réseaux <code>172.31.16.0/16</code> et <code>10.31.16.0/20</code></li>
+    <li>1 switch d'interconnexion entre le serveur et le routeur</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <!-- CALCULS -->
+  <h2><span class="emoji">🧮</span> Calculs d'adressage</h2>
+  <h3>Réseau 10.31.16.0/20</h3>
+
+  <div class="callout blue">
+    <span class="callout-icon">ℹ️</span>
+    <div class="callout-body">
+      <div class="callout-title">Nombre de machines</div>
+      <div class="math">2<sup>(32−20)</sup> − 2 = <strong>4 094</strong> machines utilisables</div>
+    </div>
+  </div>
+
+  <div class="callout gray">
+    <span class="callout-icon">🔢</span>
+    <div class="callout-body">
+      <div class="callout-title">Calcul du Broadcast en binaire</div>
+      <div class="code-block" style="margin-top:10px">
+        <div class="code-header">
+          <span>binaire</span>
+          <span>10.31.16.0 / 20</span>
+        </div>
+        <div class="code-body">
+<span class="comment">         10         31       16        0</span>
+<span class="addr">       00001010  00011111 00010000  00000000</span>  <span class="comment">(IP)</span>
+<span class="mask">       11111111  11111111 11110000  00000000</span>  <span class="comment">(Masque)</span>
+<span class="sep">      ─────────────────────────────────────────</span>
+<span class="result">       00001010  00011111 00011111  11111111</span>  <span class="comment">(Broadcast)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results">
+    <span class="pill blue">📡 Broadcast : 10.31.31.255</span>
+    <span class="pill green">🔀 Routeur : 10.31.31.254</span>
+    <span class="pill amber">💻 4 094 hôtes max</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PLAN IP -->
+  <h2><span class="emoji">📋</span> Plan d'adressage IP</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Équipement</th>
+          <th>Interface</th>
+          <th>Adresse IP</th>
+          <th>Passerelle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dot" style="background:#3dd68c"></span>Routeur</td>
+          <td><span class="tag tag-green" style="font-size:11px">LAN</span></td>
+          <td><code>10.31.31.254/20</code></td>
+          <td style="color:#555">—</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#4f9cf9"></span>Routeur</td>
+          <td><span class="tag tag-blue" style="font-size:11px">WAN</span></td>
+          <td><code>172.31.16.254/16</code></td>
+          <td><code>172.31.0.1</code></td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#3dd68c"></span>Serveur</td>
+          <td><span class="tag tag-green" style="font-size:11px">LAN</span></td>
+          <td><code>10.31.16.1/20</code></td>
+          <td><code>10.31.31.254</code></td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#f97b4f"></span>Routeur Prof</td>
+          <td><span class="tag tag-blue" style="font-size:11px">WAN</span></td>
+          <td><code>172.31.0.1/16</code></td>
+          <td style="color:#555">—</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#f97b4f"></span>Pare-feu</td>
+          <td><span class="tag tag-orange" style="font-size:11px">Beaupeyrat</span></td>
+          <td><code>10.187.20.254/24</code></td>
+          <td style="color:#555">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TOPOLOGIE -->
+  <h2><span class="emoji">🗺️</span> E.1.2 — Schéma de topologie</h2>
+
+  <div class="topo-wrap">
+    <svg width="100%" viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- WAN zone -->
+      <rect x="8" y="8" width="200" height="140" rx="8" fill="none" stroke="#4f9cf9" stroke-width="0.5" stroke-dasharray="5 4" opacity=".35"/>
+      <text x="108" y="26" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4f9cf9" opacity=".6" letter-spacing=".06em">WAN · 172.31.0.0/16</text>
+
+      <!-- Routeur prof -->
+      <rect x="24" y="34" width="168" height="44" rx="6" fill="rgba(79,156,249,.08)" stroke="rgba(79,156,249,.3)" stroke-width="0.5"/>
+      <text x="108" y="52" text-anchor="middle" font-family="'Inter',sans-serif" font-size="12" font-weight="600" fill="#e3e3e3">Routeur prof</text>
+      <text x="108" y="69" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4f9cf9">172.31.0.1/16</text>
+
+      <!-- Pare-feu -->
+      <rect x="24" y="96" width="168" height="40" rx="6" fill="rgba(249,123,79,.08)" stroke="rgba(249,123,79,.3)" stroke-width="0.5"/>
+      <text x="108" y="112" text-anchor="middle" font-family="'Inter',sans-serif" font-size="11" font-weight="600" fill="#e3e3e3">Pare-feu Beaupeyrat</text>
+      <text x="108" y="128" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f97b4f">10.187.20.254/24</text>
+
+      <!-- LAN zone -->
+      <rect x="220" y="8" width="452" height="295" rx="8" fill="none" stroke="#3dd68c" stroke-width="0.5" stroke-dasharray="5 4" opacity=".3"/>
+      <text x="446" y="26" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3dd68c" opacity=".6" letter-spacing=".06em">LAN · 10.31.16.0/20</text>
+
+      <!-- Routeur étudiant -->
+      <rect x="268" y="36" width="200" height="56" rx="7" fill="rgba(61,214,140,.08)" stroke="rgba(61,214,140,.3)" stroke-width="0.5"/>
+      <text x="368" y="56" text-anchor="middle" font-family="'Inter',sans-serif" font-size="12" font-weight="600" fill="#e3e3e3">Routeur</text>
+      <text x="368" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4f9cf9">WAN · 172.31.16.254/16</text>
+      <text x="368" y="85" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3dd68c">LAN · 10.31.31.254/20</text>
+
+      <!-- Switch -->
+      <rect x="318" y="186" width="100" height="42" rx="6" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="0.5"/>
+      <text x="368" y="204" text-anchor="middle" font-family="'Inter',sans-serif" font-size="12" font-weight="600" fill="#e3e3e3">Switch</text>
+      <text x="368" y="220" text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" fill="#6b6b6b">interconnexion</text>
+
+      <!-- Serveur -->
+      <rect x="494" y="186" width="158" height="42" rx="6" fill="rgba(61,214,140,.08)" stroke="rgba(61,214,140,.3)" stroke-width="0.5"/>
+      <text x="573" y="204" text-anchor="middle" font-family="'Inter',sans-serif" font-size="12" font-weight="600" fill="#e3e3e3">Serveur</text>
+      <text x="573" y="220" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3dd68c">10.31.16.1/20</text>
+
+      <!-- Liens -->
+      <line x1="192" y1="56" x2="268" y2="56" stroke="#4f9cf9" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="230" y="50" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4f9cf9" opacity=".7">WAN</text>
+
+      <line x1="368" y1="92" x2="368" y2="186" stroke="#3dd68c" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <line x1="418" y1="207" x2="494" y2="207" stroke="#3dd68c" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Info bas -->
+      <rect x="236" y="255" width="215" height="36" rx="6" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width="0.5"/>
+      <text x="248" y="270" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4f9cf9">Broadcast</text>
+      <text x="325" y="270" font-family="'JetBrains Mono',monospace" font-size="9" fill="#e3e3e3"> 10.31.31.255</text>
+      <text x="248" y="284" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3dd68c">Hôtes max</text>
+      <text x="325" y="284" font-family="'Inter',sans-serif" font-size="9" fill="#6b6b6b"> 4 094 machines</text>
+    </svg>
+  </div>
+
+  <!-- TOGGLES IMAGES -->
+  <details>
+    <summary>🖼️ Aide — Calcul d'adresse réseau</summary>
+    <div class="toggle-body">
+      <p style="color:#6b6b6b;font-size:12px;margin-bottom:8px">Place ton image ici après l'avoir uploadée dans ton repo GitHub.</p>
+      <code>![Calcul réseau](sisr1-g16/ipv4_essentials_1.png)</code>
+    </div>
+  </details>
+
+  <details>
+    <summary>🗺️ Schéma complet du réseau (solution)</summary>
+    <div class="toggle-body">
+      <p style="color:#6b6b6b;font-size:12px;margin-bottom:8px">Place ton image ici après l'avoir uploadée dans ton repo GitHub.</p>
+      <code>![Schéma réseau](sisr1-g16/capture_d_ecran_2026.png)</code>
+    </div>
+  </details>
+
+</div>
+</body>
+</html>
