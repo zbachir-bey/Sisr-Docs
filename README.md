@@ -1,1 +1,1 @@
-Pour accéder à ma documentation vous pouvez les fichiers .html qui vous intéresse pour ensuite les ouvrir sur un navigateur de votre choix ou simplement cliquez sur le lien correspendant sur mon profil !
+Pour accéder à ma documentation vous pouvez ouvrir/télécharger les fichiers .pdf qui vous intéresses ou simplement cliquez sur le lien correspendant à ma documentation sur mon profil !
