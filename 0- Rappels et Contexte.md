@@ -53,4 +53,4 @@ $$2^{32-20} - 2 = 4094 \text{ machines}$$
 
 ## E.1.2 Schéma complet du réseau
 
-![Schéma réseau](images/Capture d'écran 2026-04-09 210014.png)
+![Schéma réseau](images/Capture%20d%27écran%202026-04-09%20210014.png)
