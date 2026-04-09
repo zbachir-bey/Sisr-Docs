@@ -88,7 +88,7 @@ ip a
 
 Le serveur a une seule interface : `eno1`.
 
-![Vérification interface réseau du serveur](images/Capture%20d%27%C3%A9cran%202026-01-12%20115402.png)
+![Vérification interface réseau du serveur](images/Capture%20d%27%C3%A9cran%202026-04-09%20222446.png)
 
 **Fichier `/etc/network/interfaces` du serveur :**
 
