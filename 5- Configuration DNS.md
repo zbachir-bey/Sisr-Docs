@@ -79,7 +79,7 @@ console IN CNAME www
 ftp    IN CNAME www
 ```
 
-![Fichier db.m2l.org](images/Capture%20d%27%C3%A9cran%202026-04-08%20202156.png)
+![Fichier db.m2l.org](images/Capture%20d%27%C3%A9cran%202026-04-08%20202228.png)
 
 ---
 
@@ -89,8 +89,6 @@ Redémarrer et vérifier bind9 :
 systemctl restart bind9
 systemctl status bind9
 ```
-
-![Status bind9](images/Capture%20d%27%C3%A9cran%202026-04-08%20202228.png)
 
 Aller dans le conteneur web et modifier le nameserver dans `/etc/resolv.conf` :
 
