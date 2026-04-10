@@ -34,7 +34,7 @@ su - backup1
 ssh-keygen -t rsa
 ```
 
-La clé publique générée doit être copiée dans le fichier `authorized_keys` des conteneurs cibles. Voir la doc [Configuration SSH](ssh.md) pour les détails.
+La clé publique générée doit être copiée dans le fichier `authorized_keys` des conteneurs cibles. Voir la doc [Configuration SSH](2-%20Configuration%20SSH.md) pour les détails.
 
 **Sur les conteneurs à sauvegarder (sources)**
 
