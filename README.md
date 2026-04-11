@@ -1,1 +1,1 @@
-Pour accéder à ma documentation vous pouvez ouvrir/télécharger les fichiers .pdf qui vous intéresses ou simplement cliquez sur ce lien : https://www.notion.so/Documentation-SISR-33a29480955e80c299acfcbeb71845d8 (il est sur mon profil) !
+Ici je regroupe mes notes, mes bouts de code, mes tutoriels et mes configurations liés à l'administration système et réseau (typiquement tout ce qui touche au BTS SIO option SISR).
