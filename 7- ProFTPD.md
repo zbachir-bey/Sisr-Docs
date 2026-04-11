@@ -24,7 +24,7 @@ Identification du port d'écoute :
 netstat -natp | grep proftpd
 ```
 
-![Commandes initiales](images/photo-ftp-1.png)
+![Commandes initiales](images/Capture%d'écran%2026-04-08%211727.png)
 
 La configuration principale se trouve dans `/etc/proftpd/proftpd.conf`. Voici les directives clés :
 
