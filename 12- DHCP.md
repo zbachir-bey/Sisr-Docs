@@ -115,7 +115,7 @@ Puis modifier la ligne de gestion du syslog général :
 
 ## 5. Finalisation
 
-Appliquer les changements en redémarrant les démons :
+Appliquer les changements en les redémarrants :
 
 ```
 systemctl restart rsyslog
